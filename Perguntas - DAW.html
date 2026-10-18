@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas e Respostas sobre Git</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Perguntas e Respostas sobre Git</h1>
+
+    <ol>
+        <li>
+            <h2>O que são operações de “Commit”, “Push” e “Pop” efetuadas num repositório?</h2>
+            <p>
+                Estas três operações gerem o fluxo de código entre o seu ambiente local e o servidor remoto:
+            </p>
+            <ul>
+                <li><strong>Commit:</strong> Funciona como um "<em>ponto de restauro</em>" ou uma foto do seu código atual. Guarda as alterações que fez localmente na base de dados do Git do seu computador, acompanhadas por uma mensagem descritiva.</li>
+                <li><strong>Push:</strong> É o ato de enviar os seus commits locais para o repositório remoto (como o GitHub ou GitLab). Serve para partilhar o seu trabalho com a equipa.</li>
+                <li><strong>Pop:</strong> É uma operação associada ao comando <code>git stash pop</code>. Ela retira as alterações guardadas temporariamente na "gaveta" (stash) e reaplica-as no seu espaço de trabalho atual, eliminando-as dessa lista temporária.</li>
+            </ul>
+        </li>
+
+        <li>
+            <h2>Quais são as vantagens de usar Branchs num repositório git?</h2>
+            <p>
+                Os Branches (ramos) permitem que vários programadores trabalhem no mesmo projeto em simultâneo sem interferirem uns com os outros. As principais vantagens são:
+            </p>
+            <ul>
+                <li><strong>Isolamento de código:</strong> Pode criar novas funcionalidades ou corrigir erros sem estragar a versão principal e estável do projeto (<span class="underline">main</span> ou <span class="underline">master</span>).</li>
+                <li><strong>Trabalho em equipa paralelo:</strong> Vários membros da equipa podem trabalhar em tarefas completamente diferentes ao mesmo tempo.</li>
+                <li><strong>Segurança em testes:</strong> Permite experimentar ideias arriscadas. Se correr mal, basta apagar o branch, sem qualquer impacto no código principal.</li>
+                <li><strong>Facilidade na revisão de código:</strong> Facilita o processo de <em>Code Review</em> (através de <em>Pull Requests</em>), garantindo que o código é revisto antes de ser integrado.</li>
+            </ul>
+        </li>
+
+        <li>
+            <h2>Nos Merges de conteúdos resultantes de um “Pop” podem resultar em conflitos. Em que consistem e como podem ser resolvidos esses conflitos?</h2>
+            <p>
+                Um conflito de merge acontece quando tenta aplicar código (neste caso, vindo de um <em>pop</em>) em linhas de código que já foram modificadas por outra pessoa ou processo no mesmo ficheiro. O Git não consegue decidir sozinho qual das versões deve manter.
+            </p>
+            <p><strong>Como resolver os conflitos:</strong></p>
+            <ol>
+                <li><strong>Identificar os ficheiros:</strong> O Git irá listar os ficheiros em conflito no terminal.</li>
+                <li><strong>Abrir os ficheiros:</strong> Ao abrir o ficheiro, verá marcadores visuais do Git:
+                    <ul>
+                        <li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> (O código que já estava no seu branch atual)</li>
+                        <li><code>=======</code> (A linha divisória)</li>
+                        <li><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; Stash</code> (O código que veio do seu pop)</li>
+                    </ul>
+                </li>
+                <li><strong>Escolher o código final:</strong> Apague os marcadores e decida manualmente se quer manter a sua versão atual, a versão do stash, ou uma mistura de ambas.</li>
+                <li><strong>Finalizar:</strong> Guarde o ficheiro, execute <code>git add &lt;nome-do-ficheiro&gt;</code> para marcar o conflito como resolvido e faça um novo <code>git commit</code>.</li>
+            </ol>
+        </li>
+
+        <li>
+            <h2>“Clone” e “Fork” são formas diferentes de replicar um repositório Git. Quais as diferenças?</h2>
+            <p>
+                O <strong>Clone</strong> e o <strong>Fork</strong> são operações distintas no ecossistema Git e de plataformas como o GitHub, com focos diferentes em termos de localização e permissões:
+            </p>
+            
+            <p><strong>O que é um Clone?</strong></p>
+            <ul>
+                <li><strong>Onde acontece:</strong> É uma cópia feita no seu <em>computador local</em> (através do comando <code>git clone</code>).</li>
+                <li><strong>Objetivo:</strong> Trazer o código do repositório remoto para a sua máquina para poder trabalhar, editar e testar os ficheiros.</li>
+                <li><strong>Relação com o original:</strong> Liga-se diretamente ao repositório de origem (geralmente chamado de <em>origin</em>). Se tiver permissões de escrita (como ser dono ou colaborador), você envia (<code>git push</code>) as alterações diretamente para ele.</li>
+                <li><span class="underline">Consulte a Documentação do GitHub sobre Repositórios para mais detalhes.</span></li>
+            </ul>
+
+            <p><strong>O que é um Fork?</strong></p>
+            <ul>
+                <li><strong>Onde acontece:</strong> É uma cópia feita no <em>servidor</em> (na própria plataforma, como no seu perfil do GitHub ou GitLab).</li>
+                <li><strong>Objetivo:</strong> Criar um repositório novo e independente pertencente à sua conta, mas que mantém uma ligação oficial de origem (<em>upstream</em>) com o projeto original.</li>
+                <li><strong>Relação com o original:</strong> É muito usado em projetos <em>Open Source</em>. Você faz um Fork para ter a sua própria cópia na nuvem, faz um Clone desse Fork para o seu PC, faz alterações e depois propõe essas melhorias de volta ao projeto original através de um <em>Pull Request</em> (PR).</li>
+            </ul>
+        </li>
+    </ol>
+
+</body>
+</html>
