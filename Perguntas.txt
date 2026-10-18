@@ -1,6 +1,37 @@
 1 - O que são operações de “Commit”, “Push” e “Pop” efetuadas num repositório?
+
+Estas três operações gerem o fluxo de código entre o seu ambiente local e o servidor remoto:
+• Commit: Funciona como um "ponto de restauro" ou uma foto do seu código atual. Guarda as alterações que fez localmente na base de dados do Git do seu computador, acompanhadas por uma mensagem descritiva.
+• Push: É o ato de enviar os seus commits locais para o repositório remoto (como o GitHub ou GitLab). Serve para partilhar o seu trabalho com a equipa.
+• Pop: É uma operação associada ao comando git stash pop. Ela retira as alterações guardadas temporariamente na "gaveta" (stash) e reaplica-as no seu espaço de trabalho atual, eliminando-as dessa lista temporária.
+
+
 2 – Quais sáo as vantagens de usar Branchs num repositório git?
+
+Os Branches (ramos) permitem que vários programadores trabalhem no mesmo projeto em simultâneo sem interferirem uns com os outros. As principais vantagens são:
+• Isolamento de código: Pode criar novas funcionalidades ou corrigir erros sem estragar a versão principal e estável do projeto (main ou master).
+• Trabalho em equipa paralelo: Vários membros da equipa podem trabalhar em tarefas completamente diferentes ao mesmo tempo.
+• Segurança em testes: Permite experimentar ideias arriscadas. Se correr mal, basta apagar o branch, sem qualquer impacto no código principal.
+• Facilidade na revisão de código: Facilita o processo de Code Review (através de Pull Requests), garantindo que o código é revisto antes de ser integrado.
+
+
 3 – Nos Merges de conteúdos resultantes de um “Pop” podem resultar em conflitos. Em
 que consistem e como podem ser resolvidos esses conflitos?
-4 – “Clone” e “Fork” são formas diferentes de replicar um repositório Git. Quais as
-diferenças entre eles?
+
+Um conflito de merge acontece quando tenta aplicar código (neste caso, vindo de um pop) em linhas de código que já foram modificadas por outra pessoa ou processo no mesmo ficheiro. O Git não consegue decidir sozinho qual das versões deve manter.
+
+Como resolver os conflitos:
+
+1. Identificar os ficheiros: O Git irá listar os ficheiros em conflito no terminal.
+2. Abrir os ficheiros: Ao abrir o ficheiro, verá marcadores visuais do Git:
+	• <<<<<<< HEAD (O código que já estava no seu branch atual)
+	• ======= (A linha divisória)
+	• >>>>>>> Stash (O código que veio do seu pop)
+3. Escolher o código final: Apague os marcadores e decida manualmente se quer manter a sua versão atual, a versão do stash, ou uma mistura de ambas.
+4. Finalizar: Guarde o ficheiro, execute git add <nome-do-ficheiro> para marcar o conflito como resolvido e faça um novo git commit.
+
+
+4 – “Clone” e “Fork” são formas diferentes de replicar um repositório Git. Quais as diferenças?
+
+
+
